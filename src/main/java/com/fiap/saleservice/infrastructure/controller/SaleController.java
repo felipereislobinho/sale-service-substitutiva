@@ -44,7 +44,7 @@ public class SaleController {
                         response.getSale().getBuyer(),
                         response.getSale().getSaleDate(),
                         response.getSale().getStatus(),
-                        response.getPaymentId() // Aqui está o Payment ID!
+                        response.getPaymentId()
                 )
         );
 
