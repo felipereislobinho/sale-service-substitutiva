@@ -1,0 +1,30 @@
+server:
+  port: 8082
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/sales_db}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+vehicle-service:
+  url: ${VEHICLE_SERVICE_URL:http://vehicle-service:8081}
+client:
+  payment:
+    url: ${PAYMENT_SERVICE_URL:http://payment-service:8083}
+
+logging:
+  level:
+    com.fiap.saleservice.infrastructure.client.PaymentClient: DEBUG
+    org.springframework.web.client.RestTemplate: DEBUG
+    feign: DEBUG
+
