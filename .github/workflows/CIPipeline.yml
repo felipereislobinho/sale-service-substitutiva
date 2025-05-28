@@ -28,9 +28,8 @@ jobs:
 
     - name: Build da imagem Docker
       run: |
-        docker build -t sale-service:${{ github.sha }} .
-        docker tag sale-service:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/sale-service:latest
-
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/sale-service:latest .
+  
     - name: Login no DockerHub
       uses: docker/login-action@v3
       with:
