@@ -19,6 +19,7 @@ A plataforma online permite:
 
 ---
 
+
 ## 🧱 Visão Técnica
 
 *Separação de responsabilidades usando Clean Architecture*
