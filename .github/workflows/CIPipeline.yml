@@ -1,13 +1,12 @@
 name: CI Pipeline
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
 jobs:
   build:
+    name: Build, Test and Docker Push
     runs-on: ubuntu-latest
 
     steps:
@@ -23,13 +22,20 @@ jobs:
     - name: Dar permissão para o gradlew
       run: chmod +x gradlew
 
-    - name: Build e Testes
-      run: ./gradlew build
+    - name: Build, Testes e Relatório de Cobertura
+      run: ./gradlew clean test jacocoTestReport
+
+    - name: Upload do relatório JaCoCo
+      uses: actions/upload-artifact@v4
+      with:
+        name: jacoco-report-sale-service
+        path: build/jacocoHtml
 
     - name: Build da imagem Docker
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/sale-service:latest .
-  
+        docker build -t sale-service:${{ github.sha }} .
+        docker tag sale-service:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/sale-service:latest
+
     - name: Login no DockerHub
       uses: docker/login-action@v3
       with:
